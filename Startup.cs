@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using ShoppingList.Models;
 
 namespace ShoppingList
 {
@@ -25,6 +27,11 @@ namespace ShoppingList
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ItemContext>(opt =>
+               opt.UseInMemoryDatabase("Items"));
+            services.AddDbContext<ShoppingItemListContext>(opt =>
+               opt.UseInMemoryDatabase("Shoppinglists"));
+
             services.AddControllers();
         }
 
